@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NovaCart.Data;
+using NovaCart.Repositories;
+using NovaCart.Repositories.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<NovaCartDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("NovaCartDBConnection"))
 );
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 
